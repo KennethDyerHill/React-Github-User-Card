@@ -1,20 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import axios from "axios";
+import Cards from "./components/Cards";
 import './App.css';
 
-// * IMPORT COMPONENTS HERE
-import Users from './Components/Users';
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cards: {},
+      following: {},
+      followers: {}
+    };
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
+  componentDidMount() {
+    axios.get('https://api.github.com/users/KennethDyerHill')
+    .then((response) => {
+      console.log(response);
+      this.setState({cards: response.data})
+      this.setState({following: response.data.following_url})
+      this.setState({followers: response.data.followers_url})
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }
 
-      <Users />
-    </div>
-  );
+  render() {
+    console.log(this.state);
+    return (
+      <div className="App">
+        <Cards data={this.state.cards} />
+      </div>
+    );
+  }
 }
+
+
 
 export default App;

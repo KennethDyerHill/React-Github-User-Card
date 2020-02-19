@@ -1,0 +1,10 @@
+.cards {
+    width: 30%;
+    height: 20%;
+    background-color: #f4f4f4;
+    margin: 0 auto;
+}
+
+.cards-img{
+    width: 80%;
+}
